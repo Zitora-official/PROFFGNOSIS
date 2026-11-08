@@ -17,11 +17,16 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
-  background-color: var(--bg-main);
+  background-image: url('https://i.pinimg.com/736x/77/f5/3c/77f53ccb08bf097653845e070a15ab9f.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--text-main);
   -webkit-tap-highlight-color: transparent;
   padding: 16px;
 }
+
 
 .main {
     background: rgba(255, 255, 255, 0.1);
