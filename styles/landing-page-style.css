@@ -32,8 +32,8 @@ body {
 
 .main {
     width: 100%;
-    max-width: 100%;
-    height: 500px;
+    max-width: 480px;
+    height: 100%;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
