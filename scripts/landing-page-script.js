@@ -1,28 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const counterElement = document.getElementById('accuracy-counter');
-    const targetValue = 98.4;
-    const duration = 1500;
-    const steps = 60;
-    const stepTime = duration / steps;
-    let currentStep = 0;
+    const cards = document.querySelectorAll('.feature-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(12px)';
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease';
 
-    const timer = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-        const currentValue = (targetValue * progress).toFixed(1);
-        counterElement.textContent = `${currentValue}%`;
-
-        if (currentStep >= steps) {
-            clearInterval(timer);
-            counterElement.textContent = `${targetValue}%`;
-        }
-    }, stepTime);
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 150 + index * 100);
+    });
 
     const primaryBtn = document.getElementById('getStartedBtn');
+    const secondaryBtn = document.getElementById('exploreBtn');
+
     primaryBtn.addEventListener('click', () => {
         primaryBtn.style.transform = 'scale(0.95)';
         setTimeout(() => {
             primaryBtn.style.transform = 'scale(1)';
+        }, 150);
+    });
+
+    secondaryBtn.addEventListener('click', () => {
+        secondaryBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            secondaryBtn.style.transform = 'scale(1)';
         }, 150);
     });
 });
