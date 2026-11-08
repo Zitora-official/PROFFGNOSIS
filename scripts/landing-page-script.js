@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(16px)';
+        card.style.transform = 'translateY(18px)';
         card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
 
         setTimeout(() => {
