@@ -12,23 +12,32 @@
     <header class="header">
         <h1 class="title">
             PR<span class="steth-o">
-                <svg class="steth-svg" viewBox="0 0 100 100">
+                <svg class="steth-svg" viewBox="0 0 120 120">
                     <defs>
-                        <linearGradient id="stethGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3B82F6" />
-                            <stop offset="100%" stop-color="#1E293B" />
+                        <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#94A3B8" />
+                            <stop offset="50%" stop-color="#CBD5E1" />
+                            <stop offset="100%" stop-color="#475569" />
                         </linearGradient>
-                        <filter id="clayShadow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.3"/>
+                        <linearGradient id="tubeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#2563EB" />
+                            <stop offset="100%" stop-color="#0F172A" />
+                        </linearGradient>
+                        <filter id="clayShadow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.35" />
                         </filter>
                     </defs>
-                    <!-- Outer Ring (Replaces O) -->
-                    <circle cx="50" cy="50" r="38" stroke="url(#stethGrad)" stroke-width="12" fill="none" filter="url(#clayShadow)"/>
-                    <!-- Inner Chestpiece Metallic Core -->
-                    <circle cx="50" cy="50" r="20" fill="#2563EB" filter="url(#clayShadow)"/>
-                    <circle cx="50" cy="50" r="10" fill="#FFFFFF" opacity="0.9"/>
-                    <!-- Tubing curves into the letter -->
-                    <path d="M 30 75 Q 15 90 35 95" stroke="#1E293B" stroke-width="8" stroke-linecap="round" fill="none"/>
+                    <!-- Dual Earpieces -->
+                    <path d="M 40 25 C 40 10, 50 10, 50 25 M 70 25 C 70 10, 60 10, 60 25" stroke="url(#metalGrad)"
+                        stroke-width="4" stroke-linecap="round" fill="none" filter="url(#clayShadow)" />
+                    <!-- Flexible Y-Tubing -->
+                    <path d="M 50 25 C 50 45, 35 60, 60 75 C 80 88, 65 105, 50 95 C 38 88, 45 70, 60 75"
+                        stroke="url(#tubeGrad)" stroke-width="9" stroke-linecap="round" fill="none"
+                        filter="url(#clayShadow)" />
+                    <!-- Metallic Chestpiece & Bell -->
+                    <circle cx="50" cy="95" r="14" fill="url(#metalGrad)" filter="url(#clayShadow)" />
+                    <circle cx="50" cy="95" r="9" fill="#1E293B" />
+                    <circle cx="50" cy="95" r="4" fill="#60A5FA" />
                 </svg>
             </span>FFGNOSIS
         </h1>
@@ -37,54 +46,57 @@
 
     <section class="grid-container">
         <div class="card card-orange">
-            <div class="card-header">
-                <span class="pill-tag">Academics</span>
-                <svg class="card-icon-svg" viewBox="0 0 24 24">
-                    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+            <div class="pill-tag">Academics</div>
+            <div class="card-center">
+                <svg class="card-icon-large" viewBox="0 0 24 24">
+                    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
                 </svg>
             </div>
             <div class="card-body">
                 <h3>All 4 Proffs</h3>
-                <p>Complete curriculum coverage for every professional year</p>
+                <p>Complete MBBS curriculum</p>
             </div>
         </div>
 
         <div class="card card-blue">
-            <div class="card-header">
-                <span class="pill-tag">AI Core</span>
-                <svg class="card-icon-svg" viewBox="0 0 24 24">
-                    <path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-4 0V4a2 2 0 0 1 2-2zm0 16a2 2 0 0 1 2 2v2a2 2 0 0 1-4 0v-2a2 2 0 0 1 2-2zm10-8a2 2 0 0 1-2 2h-2a2 2 0 0 1 0-4h2a2 2 0 0 1 2 2zM6 12a2 2 0 0 1-2 2H2a2 2 0 0 1 0-4h2a2 2 0 0 1 2 2zm11.07-5.07a2 2 0 0 1 0 2.83l-1.42 1.41a2 2 0 1 1-2.83-2.83l1.42-1.41a2 2 0 0 1 2.83 0zM8.34 15.66a2 2 0 0 1 0 2.83l-1.41 1.42a2 2 0 1 1-2.83-2.83l1.41-1.42a2 2 0 0 1 2.83 0z"/>
+            <div class="pill-tag">AI Core</div>
+            <div class="card-center">
+                <svg class="card-icon-large" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-4 0V4a2 2 0 0 1 2-2zm0 16a2 2 0 0 1 2 2v2a2 2 0 0 1-4 0v-2a2 2 0 0 1 2-2zm10-8a2 2 0 0 1-2 2h-2a2 2 0 0 1 0-4h2a2 2 0 0 1 2 2zM6 12a2 2 0 0 1-2 2H2a2 2 0 0 1 0-4h2a2 2 0 0 1 2 2zm11.07-5.07a2 2 0 0 1 0 2.83l-1.42 1.41a2 2 0 1 1-2.83-2.83l1.42-1.41a2 2 0 0 1 2.83 0zM8.34 15.66a2 2 0 0 1 0 2.83l-1.41 1.42a2 2 0 1 1-2.83-2.83l1.41-1.42a2 2 0 0 1 2.83 0z" />
                 </svg>
             </div>
             <div class="card-body">
                 <h3>SHIVOID AI</h3>
-                <p>Built-in personal intelligent study assistant</p>
+                <p>Personal study assistant</p>
             </div>
         </div>
 
         <div class="card card-indigo">
-            <div class="card-header">
-                <span class="pill-tag">Verified</span>
-                <svg class="card-icon-svg" viewBox="0 0 24 24">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            <div class="pill-tag">Verified</div>
+            <div class="card-center">
+                <svg class="card-icon-large" viewBox="0 0 24 24">
+                    <path
+                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
                 </svg>
             </div>
             <div class="card-body">
                 <h3>100% Reliable</h3>
-                <p>High-yield clinical insights with guaranteed accuracy</p>
+                <p>High-yield clinical data</p>
             </div>
         </div>
 
         <div class="card card-teal">
-            <div class="card-header">
-                <span class="pill-tag">Analytics</span>
-                <svg class="card-icon-svg" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-4-4 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/>
+            <div class="pill-tag">Analytics</div>
+            <div class="card-center">
+                <svg class="card-icon-large" viewBox="0 0 24 24">
+                    <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-4-4 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z" />
                 </svg>
             </div>
             <div class="card-body">
                 <h3>Targeted Prep</h3>
-                <p>Precision exam strategy and performance tracking</p>
+                <p>Precision exam strategy</p>
             </div>
         </div>
     </section>
