@@ -76,7 +76,7 @@ body {
 
 .card {
     border-radius: 26px;
-    padding: 14px 16px;
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
