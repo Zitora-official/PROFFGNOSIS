@@ -54,14 +54,14 @@ body {
   display: block;
   background: none;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .subtitle {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-muted);
-    margin-top: 4px;
+    margin-top: 0px;
 }
 
 .grid-container {
