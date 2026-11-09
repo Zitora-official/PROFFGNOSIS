@@ -65,13 +65,13 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: repeat(2, 145px);
     gap: 20px;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
     flex: 1;
-    padding: 16px 16px;
+    padding: 16px 0px;
 }
 
 .card {
