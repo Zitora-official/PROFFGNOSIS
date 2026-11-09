@@ -65,7 +65,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, 145px);
+    grid-template-rows: repeat(2, 165px);
     gap: 20px;
     width: 100%;
     max-width: 480px;
