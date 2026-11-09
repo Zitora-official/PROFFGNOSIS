@@ -153,7 +153,7 @@ body {
 
 .card-icon-large {
     display: block;
-    margin: 0 auto;
+    margin: 2px auto;
     width: 48px;
     height: 48px;
     fill: currentColor;
