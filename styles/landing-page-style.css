@@ -71,7 +71,7 @@ body {
     max-width: 480px;
     margin: 0 auto;
     flex: 1;
-    padding: 16px 0;
+    padding: 16px 16px;
 }
 
 .card {
