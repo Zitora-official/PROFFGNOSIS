@@ -49,12 +49,12 @@ body {
 }
 
 .brand-logo {
-  height: 40px;
-  width: auto;
-  display: block;
-  background: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    height: 40px;
+    width: auto;
+    display: block;
+    background: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .subtitle {
@@ -154,8 +154,9 @@ body {
     width: 48px;
     height: 48px;
     fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 2.5;
     opacity: 0.95;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
 .card-body {
