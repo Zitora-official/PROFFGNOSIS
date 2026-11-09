@@ -48,6 +48,7 @@ body {
   height: 28px;
   width: auto;
   display: block;
+  background: none;
 }
 
 .subtitle {
