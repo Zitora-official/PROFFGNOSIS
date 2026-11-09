@@ -75,8 +75,9 @@ body {
 }
 
 .card {
-    border-radius: 26px;
-    padding: 6px 10px;
+    border-radius: 12px;
+    padding: 12px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
