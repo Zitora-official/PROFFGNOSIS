@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Telegram Web App safely
+    const tg = window.Telegram.WebApp;
+    if (tg) {
+        tg.ready();
+    }
+
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
