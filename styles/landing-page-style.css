@@ -41,7 +41,7 @@ body {
     -webkit-tap-highlight-color: transparent;
     
     /* Universal safe-area spacing that adapts to any phone screen automatically */
-    padding: calc(12px + var(--tg-content-safe-area-inset-top, env(safe-area-inset-top, 0px))) 18px max(16px, env(safe-area-inset-bottom));
+    padding: calc(20px + var(--tg-content-safe-area-inset-top, env(safe-area-inset-top, 0px))) 18px max(16px, env(safe-area-inset-bottom));
     
     display: flex;
     flex-direction: column;
