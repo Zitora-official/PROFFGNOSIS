@@ -10,8 +10,8 @@
     // 1. SUPABASE CONFIGURATION PLACEHOLDERS
     // Replace these values with your actual project keys during deployment
     // -------------------------------------------------------------------------
-    const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-    const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+    const SUPABASE_URL = "https://spwghoursvkbjpvxerlr.supabase.co/";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_E8QPlpZqDBlT7nSF-Q2pLg_OzfLcw30";
 
     let supabaseClient = null;
 
