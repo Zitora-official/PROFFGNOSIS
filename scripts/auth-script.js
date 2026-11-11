@@ -83,7 +83,6 @@
                 await supabaseClient.auth.getUser();
 
             if (userError || !user) {
-            sb_publishable_E8QPlpZqDBlT7nSF-Q2pLg_OzfLcw30  // Clear invalid local session
                 await supabaseClient.auth.signOut({ scope: 'local' });
 
                 showNotification(
