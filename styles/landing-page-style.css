@@ -44,8 +44,8 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 8px;
 
     -webkit-user-select: none;
     user-select: none;
