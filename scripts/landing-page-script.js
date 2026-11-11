@@ -5,18 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tg) {
         tg.ready();
 
-        const syncViewportHeight = () => {
-            const height = Number(tg.viewportStableHeight);
-
-            if (height > 0) {
-                document.documentElement.style.setProperty(
-                    '--app-viewport-height',
-                    height + 'px'
-                );
-            }
-        };
-
-        syncViewportHeight();
+        
 
         if (typeof tg.expand === 'function') {
             tg.expand();
@@ -52,13 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tg.setBackgroundColor('#F2F4F8');
         }
 
-        if (typeof tg.onEvent === 'function') {
-            tg.onEvent('viewportChanged', (event) => {
-                if (!event || event.isStateStable) {
-                    syncViewportHeight();
-                }
-            });
-        }
     }
     
 

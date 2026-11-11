@@ -25,18 +25,13 @@
 
 html {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     width: 100%;
-    height: 100vh;
-    height: var(--tg-viewport-stable-height, 100dvh);
-    min-height: 0;
-    overflow: hidden;
-    box-sizing: border-box;
+    min-height: var(--tg-viewport-stable-height, 100dvh);
     background-color: var(--bg-main);
     color: var(--text-dark);
     -webkit-tap-highlight-color: transparent;
@@ -47,9 +42,10 @@ body {
         calc(8px + var(--tg-safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) + var(--tg-content-safe-area-inset-bottom, 0px))
         calc(8px + var(--tg-safe-area-inset-left, env(safe-area-inset-left, 0px)) + var(--tg-content-safe-area-inset-left, 0px));
 
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    gap: clamp(2px, 0.8dvh, 6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
 
     -webkit-user-select: none;
     user-select: none;
@@ -69,7 +65,7 @@ svg {
 
 .header,
 .actions {
-    min-height: 0;
+    flex: 0 0 auto;
 }
 
 .header {
@@ -99,25 +95,19 @@ svg {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: clamp(8px, 1.5dvh, 12px);
+    grid-template-rows: repeat(2, minmax(150px, 185px));
+    gap: 12px;
 
     width: 100%;
     max-width: 480px;
-    height: 100%;
-    max-height: 398px;
-    min-height: 0;
-
     margin: 0 auto;
-    padding: clamp(4px, 1dvh, 8px) 12px;
-    align-self: center;
+    padding: 8px 12px;
 }
 
 .card {
     border-radius: 18px;
     padding: clamp(6px, 1.5dvh, 12px);
     min-width: 0;
-    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
