@@ -45,7 +45,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: clamp(16px, 3dvh, 28px);
+    gap: clamp(16px, 3dvh, 34px);
 
     -webkit-user-select: none;
     user-select: none;
