@@ -119,17 +119,12 @@ body {
 }
 
 .brand-logo {
-    width: 38px;
-    height: 38px;
+    width: 150px;
+    height: auto;
     object-fit: contain;
 }
 
-.brand-name {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--brand-primary);
-}
+
 
 .brand-tagline {
     font-size: 0.85rem;
