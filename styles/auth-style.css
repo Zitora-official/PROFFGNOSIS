@@ -39,11 +39,6 @@
     --radius-md: 16px;
     --radius-sm: 10px;
 
-    /* Telegram Safe Area Fallbacks */
-    --tg-safe-top: var(--tg-safe-area-inset-top, 0px);
-    --tg-safe-bottom: var(--tg-safe-area-inset-bottom, 0px);
-
-
 }
 
 /* Global Reset & Box Model */
@@ -74,8 +69,6 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
-    padding-top: var(--tg-safe-top);
-    padding-bottom: var(--tg-safe-bottom);
 }
 
 /* Layout Frame */

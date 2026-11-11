@@ -44,23 +44,7 @@
     // -------------------------------------------------------------------------
     // 3. TELEGRAM MINI APP ENVIRONMENT HANDLING
     // -------------------------------------------------------------------------
-    function initTelegramMiniApp() {
-        if (window.Telegram && window.Telegram.WebApp) {
-            const tg = window.Telegram.WebApp;
-            try {
-                // Signal ready state & expand viewport
-                tg.ready();
-                tg.expand();
-                
-                // Adjust body background color to match Telegram theme if applicable
-                if (tg.backgroundColor) {
-                    document.body.style.backgroundColor = tg.backgroundColor;
-                }
-            } catch (err) {
-                console.warn("[PROFFGNOSIS Auth] Telegram WebApp expansion warning:", err);
-            }
-        }
-    }
+    
 
     // -------------------------------------------------------------------------
     // 4. EXISTING SESSION CHECK (PENDING PROFILE PROFILE LOOKUP Integration)
@@ -200,7 +184,6 @@
         // Initialize Core Features
         initSupabase();
         setShivoidMessage();
-        initTelegramMiniApp();
         checkExistingSession();
 
         // Bind Google Auth Button Listener
