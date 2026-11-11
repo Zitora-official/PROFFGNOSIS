@@ -1,6 +1,6 @@
 /**
  * PROFFGNOSIS Authentication Controller
- * Pure Vanilla JS logic for Supabase OAuth, Telegram WebApp & SHIVOID AI Assistant
+ * Supabase Google OAuth & SHIVOID AI Assistant
  */
 
 (function () {
@@ -41,14 +41,9 @@
         }
     }
 
-    // -------------------------------------------------------------------------
-    // 3. TELEGRAM MINI APP ENVIRONMENT HANDLING
-    // -------------------------------------------------------------------------
-    
-
-    // -------------------------------------------------------------------------
-    // 4. EXISTING SESSION CHECK (PENDING PROFILE PROFILE LOOKUP Integration)
-    // -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+// 3. EXISTING SESSION VERIFICATION
+// -------------------------------------------------------------------------
 
     async function checkExistingSession() {
         if (!supabaseClient) return;
