@@ -31,7 +31,7 @@
     // -------------------------------------------------------------------------
     // 2. SHIVOID AI ASSISTANT MESSAGES COLLECTION
     // -------------------------------------------------------------------------
-    const shivoidMessage = "Hey! Doc, I'm SHIVOID, your personal AI study companion. Let's make your MBBS journey a little smarter";
+    const shivoidMessage = "Hello Doctor, I'm SHIVOID, your personal AI study companion. Let's get you logged in ";
 
     function setShivoidMessage() {
         const messageElement = document.getElementById('shivoidMessageText');
