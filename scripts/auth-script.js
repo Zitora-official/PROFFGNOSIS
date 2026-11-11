@@ -31,20 +31,13 @@
     // -------------------------------------------------------------------------
     // 2. SHIVOID AI ASSISTANT MESSAGES COLLECTION
     // -------------------------------------------------------------------------
-    const shivoidMessages = [
-        "Welcome! Sign in securely to begin your PROFFGNOSIS journey.",
-        "Your learning space is waiting. Continue with Google to get started.",
-        "Your account and learning progress stay connected to you.",
-        "A secure sign-in is all you need to access your personalised learning space.",
-        "Ready to conquer your Proffs? Let's get you signed in.",
-        "Empowering your MBBS preparation with smart AI insights. Welcome!"
-    ];
+    const shivoidMessage = "Hey! Doc, I'm SHIVOID, your personal AI study companion. Let's make your MBBS journey a little smarter";
 
-    function setRandomShivoidMessage() {
+    function setShivoidMessage() {
         const messageElement = document.getElementById('shivoidMessageText');
+
         if (messageElement) {
-            const randomIndex = Math.floor(Math.random() * shivoidMessages.length);
-            messageElement.textContent = shivoidMessages[randomIndex];
+            messageElement.textContent = shivoidMessage;
         }
     }
 
@@ -178,7 +171,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Initialize Core Features
         initSupabase();
-        setRandomShivoidMessage();
+        setShivoidMessage();
         initTelegramMiniApp();
         checkExistingSession();
 
