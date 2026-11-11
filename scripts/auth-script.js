@@ -134,13 +134,13 @@
 
         try {
             if (!supabaseClient) {
-                // Fallback simulation for demonstration when credentials are placeholders
-                setTimeout(() => {
-                    showNotification("Demo Mode: Please replace SUPABASE_URL & PUBLISHABLE_KEY in scripts/auth-script.js to execute live OAuth.", "info");
-                    setLoadingState(false, btnGoogle, btnText, btnSpinner);
-                }, 1200);
-                return;
-            }
+                showNotification(
+                    "Authentication service is unavailable. Please try again later.",
+                    "error"
+            );
+            setLoadingState(false, btnGoogle, btnText, btnSpinner);
+            return;
+        }
 
             const redirectUrl = window.location.origin + '/auth.html';
 
