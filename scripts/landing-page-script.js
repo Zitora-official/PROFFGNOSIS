@@ -1,25 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Telegram Web App safely
-    const tg = window.Telegram.WebApp;
+    // Initialize Telegram Mini App safely
+    const tg = window.Telegram && window.Telegram.WebApp;
+
     if (tg) {
         tg.ready();
 
-        // 1. Force screen expansion
+        const syncViewportHeight = () => {
+            const height = Number(tg.viewportStableHeight);
+
+            if (height > 0) {
+                document.documentElement.style.setProperty(
+                    '--app-viewport-height',
+                    height + 'px'
+                );
+            }
+        };
+
+        syncViewportHeight();
+
         if (typeof tg.expand === 'function') {
             tg.expand();
         }
+
+        // Request fullscreen only where supported
         if (typeof tg.requestFullscreen === 'function') {
-            tg.requestFullscreen();
+            try {
+                const request = tg.requestFullscreen();
+
+                if (request && typeof request.catch === 'function') {
+                    request.catch(() => {});
+                }
+            } catch (error) {
+                // Continue normally if fullscreen is unavailable
+            }
         }
 
-        // 2. Set Telegram header and background color to match light design (#F2F4F8)
+        // Request both device and Telegram UI safe areas
+        if (typeof tg.requestSafeArea === 'function') {
+            tg.requestSafeArea();
+        }
+
+        if (typeof tg.requestContentSafeArea === 'function') {
+            tg.requestContentSafeArea();
+        }
+
         if (typeof tg.setHeaderColor === 'function') {
             tg.setHeaderColor('#F2F4F8');
         }
+
         if (typeof tg.setBackgroundColor === 'function') {
             tg.setBackgroundColor('#F2F4F8');
         }
+
+        if (typeof tg.onEvent === 'function') {
+            tg.onEvent('viewportChanged', (event) => {
+                if (!event || event.isStateStable) {
+                    syncViewportHeight();
+                }
+            });
+        }
     }
+    
 
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
