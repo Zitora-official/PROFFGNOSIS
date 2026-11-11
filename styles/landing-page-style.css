@@ -274,3 +274,9 @@ svg {
         transform: translateY(-4px);
     }
 }
+
+@media (max-height: 700px) {
+    .grid-container {
+        grid-template-rows: repeat(2, clamp(130px, 19dvh, 150px));
+    }
+}
