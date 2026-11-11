@@ -25,29 +25,30 @@
 
 html {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     width: 100%;
-    height: var(--tg-viewport-stable-height, 100dvh);
-    min-height: 0;
-    overflow: hidden;
-    box-sizing: border-box;
+    min-height: var(--tg-viewport-stable-height, 100dvh);
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
     background-color: var(--bg-main);
     color: var(--text-dark);
     -webkit-tap-highlight-color: transparent;
 
     padding:
-        calc(8px + var(--tg-content-safe-area-inset-top, env(safe-area-inset-top, 0px)))
-        18px
-        calc(8px + var(--tg-content-safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+        calc(12px + var(--tg-content-safe-area-inset-top, env(safe-area-inset-top, 0px)))
+        max(16px, var(--tg-content-safe-area-inset-right, env(safe-area-inset-right, 0px)))
+        calc(12px + var(--tg-content-safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)))
+        max(16px, var(--tg-content-safe-area-inset-left, env(safe-area-inset-left, 0px)));
 
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     -webkit-user-select: none;
     user-select: none;
@@ -95,19 +96,19 @@ svg {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(clamp(138px, 22dvh, 185px), auto);
     gap: 12px;
     width: 100%;
     max-width: 480px;
-    min-height: 0;
-    margin: 0 auto;
-    padding: 8px 12px;
+    margin: 10px auto 0;
+    flex: 0 0 auto;
+    padding: 12px;
 }
 
 .card {
     border-radius: 18px;
-    padding: clamp(8px, 2vh, 12px);
-    min-height: 0;
+    padding: 12px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -176,14 +177,14 @@ svg {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 4px 0;
+    padding: 8px 0;
 }
 
 .card-icon-large {
     display: block;
     margin: 0 auto;
-    width: clamp(32px, 6vh, 48px);
-    height: clamp(32px, 6vh, 48px);
+    width: 48px;
+    height: 48px;
     fill: currentColor;
     stroke: currentColor;
     stroke-width: 1.1;
@@ -219,7 +220,7 @@ svg {
 
 .btn {
     width: 100%;
-    padding: clamp(9px, 1.8vh, 15px);
+    padding: 15px;
     border: none;
     border-radius: 20px;
     font-family: 'Plus Jakarta Sans', sans-serif;
