@@ -65,29 +65,58 @@
     // -------------------------------------------------------------------------
     // 4. EXISTING SESSION CHECK (PENDING PROFILE PROFILE LOOKUP Integration)
     // -------------------------------------------------------------------------
+
     async function checkExistingSession() {
         if (!supabaseClient) return;
 
         try {
-            const { data: { session }, error } = await supabaseClient.auth.getSession();
-            if (error) throw error;
+            // First retrieve the locally stored session
+            const { data: { session }, error: sessionError } =
+                await supabaseClient.auth.getSession();
 
-            if (session) {
-                showNotification("Existing session found. Verifying profile...", "info");
-                
-                /*
-                   PROFILE LOOKUP INTEGRATION (PENDING PROFILE TABLE IMPLEMENTATION):
-                   When the 'profiles' database table is created:
-                   1. Query table: const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).single();
-                   2. If profile complete -> window.location.href = '/dashboard.html';
-                   3. If incomplete -> window.location.href = '/onboarding.html';
-                */
-                console.log("[PROFFGNOSIS Auth] User authenticated:", session.user.email);
+            if (sessionError) throw sessionError;
+
+            if (!session) return;
+
+            // Verify the user with Supabase Auth server
+            const { data: { user }, error: userError } =
+                await supabaseClient.auth.getUser();
+
+            if (userError || !user) {
+            sb_publishable_E8QPlpZqDBlT7nSF-Q2pLg_OzfLcw30  // Clear invalid local session
+                await supabaseClient.auth.signOut({ scope: 'local' });
+
+                showNotification(
+                    "Your session is no longer valid. Please sign in again.",
+                    "error"
+                );
+
+                return;
             }
+
+            showNotification(
+                "Account verified successfully.",
+                "success"
+            );
+
+            console.log(
+                "[PROFFGNOSIS Auth] Verified user:",
+                user.email
+            );
+
         } catch (err) {
-            console.error("[PROFFGNOSIS Auth] Session check error:", err.message);
+            console.error(
+                "[PROFFGNOSIS Auth] Session verification error:",
+                err.message
+            );
+
+            showNotification(
+                "Unable to verify your account. Please try again.",
+                "error"
+            );
         }
     }
+
 
     // -------------------------------------------------------------------------
     // 5. GOOGLE OAUTH AUTHENTICATION HANDLER
