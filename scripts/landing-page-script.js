@@ -61,13 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (primaryBtn) {
         primaryBtn.addEventListener('click', () => {
-            primaryBtn.style.transform = 'scale(0.96)';
-            setTimeout(() => {
-                primaryBtn.style.transform = 'scale(1)';
-            }, 150);
+        window.location.href = 'auth.html';
         });
     }
-
     if (secondaryBtn) {
         secondaryBtn.addEventListener('click', () => {
             secondaryBtn.style.transform = 'scale(0.96)';
