@@ -50,6 +50,19 @@
     padding: 0;
 }
 
+/* Prevent text selection and image dragging */
+body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+img,
+svg {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
 html {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--bg-main);

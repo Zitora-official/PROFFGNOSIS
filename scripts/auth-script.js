@@ -176,6 +176,19 @@
     // 6. INITIALIZATION & EVENT LISTENERS
     // -------------------------------------------------------------------------
     document.addEventListener('DOMContentLoaded', () => {
+        // Disable copying, cutting, dragging and context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('cut', (e) => e.preventDefault());
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+
+// Block common copy and save shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) &&
+                ['c', 'x', 'a', 'u', 's', 'p'].includes(e.key.toLowerCase())) {
+                e.preventDefault();
+            }
+        });
         // Initialize Core Features
         initSupabase();
         setShivoidMessage();
