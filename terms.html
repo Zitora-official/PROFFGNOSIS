@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — PROFFGNOSIS</title>
+  <meta name="description" content="Terms of Service for PROFFGNOSIS, an MBBS medical education platform published by Zitora Labs.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://proffgnosis.vercel.app/terms.html">
+  <style>
+    :root {
+      --bg-canvas: #F5F4F0;
+      --surface-card: #FFFFFF;
+      --surface-subtle: #FAF9F6;
+      --text-primary: #1C1D21;
+      --text-secondary: #5A5D65;
+      --text-muted: #7C8089;
+      --accent-primary: #1F5E5B;
+      --accent-soft: #EBF2F1;
+      --border-subtle: rgba(28, 29, 33, 0.08);
+      --clay-shadow: 0 10px 28px -6px rgba(28, 29, 33, 0.06), 0 2px 6px -1px rgba(28, 29, 33, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --clay-pill-shadow: 0 2px 8px rgba(28, 29, 33, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px 16px 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Header & Branding */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 4px 2px;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: var(--accent-primary);
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(31, 94, 91, 0.22);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--surface-card);
+      padding: 7px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--clay-pill-shadow);
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    /* Main Card Surface */
+    .legal-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--clay-shadow);
+      padding: 28px 22px;
+    }
+
+    .doc-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+    }
+
+    .doc-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-primary);
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .meta-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .intro-text {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+    }
+
+    /* Table of Contents */
+    .toc-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 26px;
+    }
+
+    .toc-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .toc-list a {
+      display: block;
+      text-decoration: none;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      padding: 3px 0;
+      transition: color 0.15s ease;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* Content Sections */
+    .terms-section {
+      margin-bottom: 26px;
+      scroll-margin-top: 20px;
+    }
+
+    .terms-section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .notice-pill {
+      background: var(--surface-subtle);
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 0 10px 10px 0;
+      padding: 11px 14px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      margin: 12px 0;
+    }
+
+    .contact-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .contact-link {
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .site-footer {
+      margin-top: 24px;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+
+    .copyright {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 480px) {
+      body {
+        padding: 36px 20px 64px;
+      }
+      .legal-card {
+        padding: 34px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="top-nav">
+      <a href="https://proffgnosis.vercel.app/" class="brand-mark" aria-label="PROFFGNOSIS Home">
+        <span class="brand-badge">P</span>
+        <span>PROFFGNOSIS</span>
+      </a>
+      <a href="https://proffgnosis.vercel.app/" class="back-link">← Back to App</a>
+    </header>
+
+    <main class="legal-card">
+      <div class="doc-header">
+        <span class="doc-tag">Terms &amp; Conditions</span>
+        <h1>Terms of Service</h1>
+        <p class="meta-date">Last updated: November 2026</p>
+        <p class="intro-text">
+          Welcome to <strong>PROFFGNOSIS</strong>, an MBBS medical education platform published by <strong>Zitora Labs</strong>. By accessing or using our website at <code>https://proffgnosis.vercel.app/</code>, you agree to be bound by these Terms of Service.
+        </p>
+      </div>
+
+      <nav class="toc-box" aria-label="Table of contents">
+        <div class="toc-title">Contents</div>
+        <ol class="toc-list">
+          <li><a href="#term-1">1. Acceptance of Terms</a></li>
+          <li><a href="#term-2">2. Eligibility &amp; Student Accounts</a></li>
+          <li><a href="#term-3">3. Google Authentication &amp; Security</a></li>
+          <li><a href="#term-4">4. Accurate Registration Information</a></li>
+          <li><a href="#term-5">5. Permitted &amp; Prohibited Use</a></li>
+          <li><a href="#term-6">6. Educational &amp; Medical Disclaimers</a></li>
+          <li><a href="#term-7">7. SHIVOID AI Limitations</a></li>
+          <li><a href="#term-8">8. No Guarantee of Academic Outcomes</a></li>
+          <li><a href="#term-9">9. Intellectual Property</a></li>
+          <li><a href="#term-10">10. Account Suspension &amp; Termination</a></li>
+          <li><a href="#term-11">11. Account Deletion Requests</a></li>
+          <li><a href="#term-12">12. Platform Availability &amp; Updates</a></li>
+          <li><a href="#term-13">13. Limitation of Liability</a></li>
+          <li><a href="#term-14">14. Changes to These Terms</a></li>
+          <li><a href="#term-15">15. Governing Law &amp; Jurisdiction</a></li>
+          <li><a href="#term-16">16. Contact Information</a></li>
+        </ol>
+      </nav>
+
+      <section id="term-1" class="terms-section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By signing in with Google, completing registration, or using any part of PROFFGNOSIS, you acknowledge that you have read, understood, and agree to these Terms of Service and our <a href="privacy.html" class="contact-link">Privacy Policy</a>. If you do not agree with these terms, please discontinue use of the platform.</p>
+      </section>
+
+      <section id="term-2" class="terms-section">
+        <h2>2. Eligibility &amp; Student Accounts</h2>
+        <p>PROFFGNOSIS is intended primarily for MBBS students and medical learners using the platform for personal academic study. Each student may maintain only one individual account linked to their personal Google account.</p>
+      </section>
+
+      <section id="term-3" class="terms-section">
+        <h2>3. Google Authentication &amp; Account Security</h2>
+        <p>Access to PROFFGNOSIS requires authentication through Google Sign-In (via Supabase Auth). You are responsible for safeguarding access to your Google account and for all activity that occurs under your PROFFGNOSIS session. Do not share your login credentials or allow others to use your student account.</p>
+      </section>
+
+      <section id="term-4" class="terms-section">
+        <h2>4. Accurate Registration Information</h2>
+        <p>During your one-time registration, you agree to provide truthful, accurate, and current details—including your name, medical college name, MBBS admission year, current MBBS professional year, age, and gender. Providing false or misleading identity or institutional details may result in account restriction.</p>
+      </section>
+
+      <section id="term-5" class="terms-section">
+        <h2>5. Permitted &amp; Prohibited Use</h2>
+        <p>You may use PROFFGNOSIS solely for personal, non-commercial medical education and exam preparation. You agree not to:</p>
+        <ul>
+          <li>Scrape, crawl, copy, or systematically extract study materials, structured data, or platform code.</li>
+          <li>Attempt to bypass authentication, probe database security, or disrupt Vercel or Supabase infrastructure.</li>
+          <li>Submit patient-identifiable clinical records, unlawful material, or abusive prompts into SHIVOID AI or any platform input.</li>
+          <li>Share, resell, or redistribute account access to third parties.</li>
+        </ul>
+      </section>
+
+      <section id="term-6" class="terms-section">
+        <h2>6. Academic Content &amp; Medical Disclaimers</h2>
+        <div class="notice-pill">
+          <strong>Educational Purpose Only:</strong> PROFFGNOSIS is strictly an academic study aid. It is not a medical device, clinical decision-support tool, or healthcare provider.
+        </div>
+        <p>Content presented on PROFFGNOSIS is intended to assist MBBS students with conceptual learning and revision. It must never be used as a substitute for qualified medical judgment, clinical supervision, standard medical textbooks, or official guidelines issued by your university or medical council.</p>
+      </section>
+
+      <section id="term-7" class="terms-section">
+        <h2>7. SHIVOID AI &amp; AI-Generated Response Limitations</h2>
+        <p>PROFFGNOSIS includes an AI-assisted study feature, <strong>SHIVOID</strong>, which is planned to generate responses using Grok by xAI. AI-generated outputs are probabilistic and may occasionally contain factual errors, omissions, or outdated medical references.</p>
+        <p>You must independently verify all information generated by SHIVOID against authoritative textbooks, peer-reviewed literature, and faculty guidance before relying on it in exams or academic work.</p>
+      </section>
+
+      <section id="term-8" class="terms-section">
+        <h2>8. No Guarantee of Exam Results or Academic Outcomes</h2>
+        <p>While PROFFGNOSIS is built to support MBBS learning, Zitora Labs makes no representations or guarantees regarding university examination scores, passing grades, rankings, or specific academic outcomes.</p>
+      </section>
+
+      <section id="term-9" class="terms-section">
+        <h2>9. Intellectual Property &amp; Platform Content</h2>
+        <p>All visual design, user interface elements, branding, software code, and original educational compilations on PROFFGNOSIS are the intellectual property of Zitora Labs or its respective licensors. You are granted a limited, non-exclusive, revocable license to access and view the platform for personal study.</p>
+      </section>
+
+      <section id="term-10" class="terms-section">
+        <h2>10. Account Suspension &amp; Termination by Administrators</h2>
+        <p>Zitora Labs reserves the right to suspend or terminate any student account at our discretion if we reasonably believe a user has violated these Terms of Service, compromised platform security, or engaged in abusive behavior.</p>
+      </section>
+
+      <section id="term-11" class="terms-section">
+        <h2>11. Account Deletion Requests</h2>
+        <p>PROFFGNOSIS does not currently provide an automated self-service account deletion option within the user interface. If you wish to close your account and request deletion of your registration profile, please contact us at <a href="mailto:zitora.official@gmail.com" class="contact-link">zitora.official@gmail.com</a> from your registered Google email address so an administrator can assist you.</p>
+      </section>
+
+      <section id="term-12" class="terms-section">
+        <h2>12. Platform Availability, Updates &amp; Interruptions</h2>
+        <p>PROFFGNOSIS is provided on an "as-is" and "as-available" basis. Features, study modules, and integrations (including SHIVOID AI) may be modified, updated, or temporarily unavailable due to maintenance, hosting interruptions, or third-party API changes without prior notice.</p>
+      </section>
+
+      <section id="term-13" class="terms-section">
+        <h2>13. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by applicable law, Zitora Labs and the creators of PROFFGNOSIS shall not be liable for any indirect, incidental, consequential, or academic damages arising out of your use of, or inability to use, the platform or any reliance on AI-generated or educational content.</p>
+      </section>
+
+      <section id="term-14" class="terms-section">
+        <h2>14. Changes to These Terms</h2>
+        <p>We may update these Terms of Service from time to time to reflect platform updates or legal requirements. Revised terms will be published on this page with an updated effective date. Continued use of PROFFGNOSIS after changes are posted constitutes acceptance of the updated terms.</p>
+      </section>
+
+      <section id="term-15" class="terms-section">
+        <h2>15. Governing Law &amp; Jurisdiction</h2>
+        <p>These Terms of Service are governed by and construed in accordance with the laws of India, without regard to conflict-of-law principles. Any disputes arising in connection with PROFFGNOSIS shall be subject to the exclusive jurisdiction of the competent courts in India.</p>
+      </section>
+
+      <section id="term-16" class="terms-section">
+        <h2>16. Contact Information</h2>
+        <p>For questions regarding these Terms of Service, platform support, or account administration, please reach out to us:</p>
+        <div class="contact-card">
+          <p><strong>Application:</strong> PROFFGNOSIS</p>
+          <p><strong>Publisher:</strong> Zitora Labs</p>
+          <p><strong>Website:</strong> <a href="https://proffgnosis.vercel.app/" class="contact-link">https://proffgnosis.vercel.app/</a></p>
+          <p><strong>Email:</strong> <a href="mailto:zitora.official@gmail.com" class="contact-link">zitora.official@gmail.com</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="https://proffgnosis.vercel.app/">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:zitora.official@gmail.com">Contact</a>
+      </nav>
+      <p class="copyright">© 2026 Zitora Labs · PROFFGNOSIS. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var targetId = this.getAttribute('href');
+        var targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', targetId);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
