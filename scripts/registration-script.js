@@ -23,28 +23,32 @@
   );
 
   /* ========================================================================
-     2. CONFIGURABLE ACADEMIC & INSTITUTION RULES
+     2. CONFIGURABLE ACADEMIC & INSTITUTION RULES (NMC CBME 2024 Reference)
      ======================================================================== */
 
   /**
    * VERIFIED_MEDICAL_COLLEGES:
    * Intentionally left EMPTY per administrator instructions.
-   * Registration cannot be submitted until you add verified college names here
-   * (or load them from a verified database table).
-   * Example when ready: ["All India Institute of Medical Sciences, New Delhi", ...]
+   * Registration cannot be submitted until verified colleges are added here.
    */
   const VERIFIED_MEDICAL_COLLEGES = Object.freeze([]);
 
   /**
-   * Exact allowed MBBS Professional Year labels.
+   * Configurable academic session start month (October = 10).
+   * Used as the baseline for dynamic academic progression calculations.
    */
-  const PROFESSIONAL_YEARS = Object.freeze({
-    FIRST: "First Professional",
-    SECOND: "Second Professional",
-    THIRD_PART_1: "Third Professional Part I",
-    THIRD_PART_2: "Third Professional Part II",
-    FINAL: "Final Professional"
-  });
+  const ACADEMIC_SESSION_START_MONTH = 10;
+
+  /**
+   * Exact student-facing MBBS Professional Year options in required order:
+   */
+  const PROFESSIONAL_YEARS = Object.freeze([
+    "First Professional — 1 year",
+    "Second Professional — 1 year",
+    "Third Professional — 1 year",
+    "Final Professional — 1.5 years",
+    "Compulsory Rotating Medical Internship (CRMI) — 1 year"
+  ]);
 
   const ALLOWED_GENDERS = Object.freeze([
     "Male",
@@ -58,79 +62,67 @@
     MAX: 65
   });
 
-  /**
-   * ACADEMIC_PROGRESSION_RULES:
-   * Explicit cohort-to-professional-year mapping for Indian MBBS batches.
-   *
-   * ASSUMPTION NOTE:
-   * Because Indian MBBS academic calendars vary due to NMC guidelines,
-   * COVID-era batch delays (2020–2022), counselling delays, and supplementary
-   * exam schedules across universities, a single rigid subtraction formula
-   * (currentYear - admissionYear) is inaccurate.
-   *
-   * Each admission year maps explicitly to the plausible professional years
-   * a student from that batch can currently be enrolled in (accounting for
-   * standard progression and up to 1–2 years of university/batch variance).
-   * Update this object whenever a new academic session begins or shifts.
-   */
-  const ACADEMIC_PROGRESSION_RULES = Object.freeze({
-    2026: [
-      PROFESSIONAL_YEARS.FIRST
-    ],
-    2025: [
-      PROFESSIONAL_YEARS.FIRST,
-      PROFESSIONAL_YEARS.SECOND
-    ],
-    2024: [
-      PROFESSIONAL_YEARS.SECOND,
-      PROFESSIONAL_YEARS.THIRD_PART_1
-    ],
-    2023: [
-      PROFESSIONAL_YEARS.THIRD_PART_1,
-      PROFESSIONAL_YEARS.THIRD_PART_2,
-      PROFESSIONAL_YEARS.FINAL
-    ],
-    2022: [
-      PROFESSIONAL_YEARS.THIRD_PART_2,
-      PROFESSIONAL_YEARS.FINAL
-    ],
-    2021: [
-      PROFESSIONAL_YEARS.THIRD_PART_2,
-      PROFESSIONAL_YEARS.FINAL
-    ],
-    2020: [
-      PROFESSIONAL_YEARS.FINAL
-    ]
-  });
-
   /* ========================================================================
-     3. DEDICATED VALIDATION FUNCTIONS
+     3. DYNAMIC ACADEMIC PROGRESSION CALCULATION & VALIDATION
      ======================================================================== */
 
   /**
-   * Returns valid professional years for a given admission year.
-   * Returns an empty array if the admission year is not in ACADEMIC_PROGRESSION_RULES.
+   * Dynamically calculates the expected professional phase based on:
+   * - Admission year selected by the student
+   * - Configurable academic session start month (October 1 baseline)
+   * - Current date and NMC CBME phase durations:
+     * Months 0–11: First Professional (1 year)
+     * Months 12–23: Second Professional (1 year)
+     * Months 24–35: Third Professional (1 year)
+     * Months 36–53: Final Professional (1.5 years / 18 months)
+     * Months 54–65: Compulsory Rotating Medical Internship (1 year / 12 months)
    */
-  function getAllowedProfessionalYears(admissionYear) {
-    const parsedYear = Number(admissionYear);
-    if (!Number.isInteger(parsedYear)) {
-      return [];
+  function calculateExpectedProfessionalYear(admissionYear) {
+    const parsedAdmissionYear = Number(admissionYear);
+    if (!Number.isInteger(parsedAdmissionYear)) {
+      return null;
     }
-    const allowed = ACADEMIC_PROGRESSION_RULES[parsedYear];
-    return Array.isArray(allowed) ? [...allowed] : [];
+
+    const now = new Date();
+    // October 1 baseline of the selected admission year
+    const startDate = new Date(parsedAdmissionYear, ACADEMIC_SESSION_START_MONTH - 1, 1);
+
+    let elapsedMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+    if (now.getDate() < startDate.getDate()) {
+      elapsedMonths--;
+    }
+    if (elapsedMonths < 0) {
+      elapsedMonths = 0;
+    }
+
+    if (elapsedMonths <= 11) {
+      return PROFESSIONAL_YEARS[0]; // First Professional
+    } else if (elapsedMonths <= 23) {
+      return PROFESSIONAL_YEARS[1]; // Second Professional
+    } else if (elapsedMonths <= 35) {
+      return PROFESSIONAL_YEARS[2]; // Third Professional
+    } else if (elapsedMonths <= 53) {
+      return PROFESSIONAL_YEARS[3]; // Final Professional
+    } else {
+      return PROFESSIONAL_YEARS[4]; // Compulsory Rotating Medical Internship (CRMI)
+    }
   }
 
   /**
    * Dedicated validator for Admission Year + Current MBBS Professional Year.
-   * Prevents impossible combinations and rejects tampered DOM values.
+   * Compares the selected professional stage against the dynamic calculation.
+   * Rejects mismatches without broad automatic tolerances to ensure repeat/delayed
+   * students go through admin verification.
    */
   function validateAcademicProgression(admissionYearInput, professionalYearInput) {
     const admissionYear = Number(admissionYearInput);
+    const currentYear = new Date().getFullYear();
 
     if (
       !admissionYearInput ||
       !Number.isInteger(admissionYear) ||
-      !Object.prototype.hasOwnProperty.call(ACADEMIC_PROGRESSION_RULES, admissionYear)
+      admissionYear < currentYear - 7 ||
+      admissionYear > currentYear
     ) {
       return {
         valid: false,
@@ -139,21 +131,21 @@
       };
     }
 
-    const allowedProfYears = getAllowedProfessionalYears(admissionYear);
-
-    if (!professionalYearInput || typeof professionalYearInput !== "string") {
+    if (!professionalYearInput || !PROFESSIONAL_YEARS.includes(professionalYearInput)) {
       return {
         valid: false,
         field: "professional_year",
-        message: "Please select your current MBBS professional year."
+        message: "Please select a valid MBBS professional year."
       };
     }
 
-    if (!allowedProfYears.includes(professionalYearInput)) {
+    const expectedStage = calculateExpectedProfessionalYear(admissionYear);
+
+    if (professionalYearInput !== expectedStage) {
       return {
         valid: false,
         field: "professional_year",
-        message: `Selected professional year is not consistent with the ${admissionYear} admission batch.`
+        message: `Selected professional year does not match your calculated academic progression for batch ${admissionYear}. If you have a repeat year or academic delay, please contact admin verification.`
       };
     }
 
@@ -162,7 +154,6 @@
 
   /**
    * Validates the selected medical college against the configured allowlist.
-   * Blocks empty lists and arbitrary browser-injected option values.
    */
   function validateMedicalCollege(collegeValue) {
     if (VERIFIED_MEDICAL_COLLEGES.length === 0) {
@@ -209,7 +200,7 @@
       errors.medical_college = collegeCheck.message;
     }
 
-    // 3. Admission Year & 4. Professional Year
+    // 3. Admission Year & 4. Professional Year Progression
     const progressionCheck = validateAcademicProgression(
       rawInput.admission_year,
       rawInput.professional_year
@@ -382,23 +373,28 @@
   }
 
   function populateAdmissionYears() {
-    const years = Object.keys(ACADEMIC_PROGRESSION_RULES)
-      .map(Number)
-      .sort((a, b) => b - a); // Most recent admission year first
+    els.admissionYear.innerHTML = "";
+    const defaultOpt = document.createElement("option");
+    defaultOpt.value = "";
+    defaultOpt.textContent = "Select your MBBS admission year";
+    defaultOpt.selected = true;
+    defaultOpt.disabled = true;
+    els.admissionYear.appendChild(defaultOpt);
 
-    years.forEach((year) => {
+    const currentYear = new Date().getFullYear();
+    // Dynamically generate admission years from current year down to currentYear - 7
+    for (let year = currentYear; year >= currentYear - 7; year--) {
       const opt = document.createElement("option");
       opt.value = String(year);
       opt.textContent = String(year);
       els.admissionYear.appendChild(opt);
-    });
+    }
   }
 
   function updateProfessionalYearOptions(selectedAdmissionYear) {
-    const allowedYears = getAllowedProfessionalYears(selectedAdmissionYear);
     els.professionalYear.innerHTML = "";
 
-    if (allowedYears.length === 0) {
+    if (!selectedAdmissionYear) {
       const placeholder = document.createElement("option");
       placeholder.value = "";
       placeholder.textContent = "Select admission year first";
@@ -416,7 +412,7 @@
     defaultOpt.disabled = true;
     els.professionalYear.appendChild(defaultOpt);
 
-    allowedYears.forEach((profYearLabel) => {
+    PROFESSIONAL_YEARS.forEach((profYearLabel) => {
       const opt = document.createElement("option");
       opt.value = profYearLabel;
       opt.textContent = profYearLabel;
@@ -459,7 +455,6 @@
 
       if (profileError) {
         console.error("Error checking existing profile:", profileError);
-        // Do not expose raw SQL/RLS details; allow safe fallback or alert user
       }
 
       if (existingProfile && existingProfile.registration_completed === true) {
@@ -467,7 +462,7 @@
         return;
       }
 
-      // Pre-fill full name from Google OAuth metadata if available (editable by student)
+      // Pre-fill full name from Google OAuth metadata if available
       const googleFullName =
         authenticatedUser.user_metadata?.full_name ||
         authenticatedUser.user_metadata?.name ||
@@ -512,7 +507,7 @@
       gender: els.studentGender.value
     };
 
-    // Run full client-side validation (including tampered-value protection)
+    // Run full client-side validation
     const validationResult = validateRegistrationPayload(rawPayload);
 
     if (!validationResult.isValid) {
@@ -535,7 +530,7 @@
 
       const verifiedUserId = authCheck.user.id;
 
-      // Re-check profile completion status to prevent duplicate submissions across tabs
+      // Re-check profile completion status
       const { data: currentProfile, error: checkError } = await supabaseClient
         .from("profiles")
         .select("id, registration_completed")
@@ -564,8 +559,6 @@
         updated_at: new Date().toISOString()
       };
 
-      // If an incomplete profile row already exists (e.g., created by an auth trigger),
-      // update it; otherwise insert a new row.
       let dbError = null;
 
       if (currentProfile && currentProfile.id === verifiedUserId) {

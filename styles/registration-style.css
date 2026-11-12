@@ -85,20 +85,22 @@ body {
     gap: 16px;
 }
 
-/* Brand Header */
+/* Brand Header & Official SVG Logo */
 .brand-header {
     text-align: center;
-    padding: 4px 0 4px;
+    padding: 4px 0 6px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 6px;
 }
 
-.brand-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--accent-primary);
+.brand-logo {
+    height: 38px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
 }
 
 .brand-subtitle {
