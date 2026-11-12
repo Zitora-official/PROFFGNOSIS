@@ -28,10 +28,45 @@
 
   /**
    * VERIFIED_MEDICAL_COLLEGES:
-   * Intentionally left EMPTY per administrator instructions.
-   * Registration cannot be submitted until verified colleges are added here.
+   * Officially verified ABVMU-affiliated Government and Private MBBS colleges in Uttar Pradesh.
    */
-  const VERIFIED_MEDICAL_COLLEGES = Object.freeze([]);
+  const VERIFIED_MEDICAL_COLLEGES = Object.freeze([
+    "Autonomous State Medical College, Firozabad",
+    "Rajarshi Dashrath Autonomous State Medical College, Ayodhya",
+    "Maharshi Vashishtha Autonomous State Medical College, Basti",
+    "Maharaja Suhel Dev Autonomous State Medical College, Bahraich",
+    "Pt. Ram Prasad Bismil Autonomous State Medical College, Shahjahanpur",
+    "Veerangana Avanti Bai Lodhi Autonomous State Medical College, Etah",
+    "Autonomous State Medical College, Hardoi",
+    "Dr. Sone Lal Patel Autonomous State Medical College, Pratapgarh",
+    "Madhav Prasad Tripathi Autonomous State Medical College, Siddharthnagar",
+    "Maharshi Devraha Baba Autonomous State Medical College, Deoria",
+    "Autonomous State Medical College, Ghazipur",
+    "Uma Nath Singh Autonomous State Medical College, Jaunpur",
+    "Autonomous State Medical College, Mirzapur",
+    "Amar Shaheed Jodha Singh Attaiya Thakur Dariyao Singh Medical College, Fatehpur",
+    "Autonomous State Medical College, Sultanpur",
+    "Autonomous State Medical College, Kushinagar",
+    "Autonomous State Medical College, Lalitpur",
+    "Autonomous State Medical College, Pilibhit",
+    "Kalyan Singh Government Medical College, Bulandshahr",
+    "Mahatma Vidur Autonomous State Medical College, Bijnor",
+    "Baba Kina Ram Autonomous State Medical College and Hospital, Chandauli",
+    "Autonomous State Medical College and Hospital, Kaushambi",
+    "Autonomous State Medical College, Sonebhadra",
+    "Autonomous State Medical College and Hospital, Auraiya",
+    "Autonomous State Medical College and Hospital, Gonda",
+    "Autonomous State Medical College and Hospital, Lakhimpur Kheri",
+    "Autonomous State Medical College, Amethi",
+    "Autonomous State Medical College, Kanpur Dehat",
+    "ESIC Medical College and Hospital, Noida",
+    "ESIC Medical College and Hospital, Varanasi",
+    "Ajay Sangaal Institute of Medical Sciences and Ayushman Hospital, Shamli",
+    "Dr. B.S. Kushwah Institute of Medical Sciences, Kanpur",
+    "Naraina Medical College & Research Centre, Kanpur",
+    "KMC Medical College & Hospital, Maharajganj",
+    "Shri Siddhi Vinayak Medical College & Hospital, Sambhal"
+  ]);
 
   /**
    * Configurable academic session start month (October = 10).
@@ -70,12 +105,7 @@
    * Dynamically calculates the expected professional phase based on:
    * - Admission year selected by the student
    * - Configurable academic session start month (October 1 baseline)
-   * - Current date and NMC CBME phase durations:
-     * Months 0–11: First Professional (1 year)
-     * Months 12–23: Second Professional (1 year)
-     * Months 24–35: Third Professional (1 year)
-     * Months 36–53: Final Professional (1.5 years / 18 months)
-     * Months 54–65: Compulsory Rotating Medical Internship (1 year / 12 months)
+   * - Current date and NMC CBME phase durations
    */
   function calculateExpectedProfessionalYear(admissionYear) {
     const parsedAdmissionYear = Number(admissionYear);
@@ -84,7 +114,6 @@
     }
 
     const now = new Date();
-    // October 1 baseline of the selected admission year
     const startDate = new Date(parsedAdmissionYear, ACADEMIC_SESSION_START_MONTH - 1, 1);
 
     let elapsedMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
@@ -110,9 +139,6 @@
 
   /**
    * Dedicated validator for Admission Year + Current MBBS Professional Year.
-   * Compares the selected professional stage against the dynamic calculation.
-   * Rejects mismatches without broad automatic tolerances to ensure repeat/delayed
-   * students go through admin verification.
    */
   function validateAcademicProgression(admissionYearInput, professionalYearInput) {
     const admissionYear = Number(admissionYearInput);
@@ -183,7 +209,6 @@
   function validateRegistrationPayload(rawInput) {
     const errors = {};
 
-    // 1. Student Full Name
     const cleanName = typeof rawInput.student_name === "string"
       ? rawInput.student_name.trim().replace(/\s+/g, " ")
       : "";
@@ -194,13 +219,11 @@
       errors.student_name = "Full name must be between 2 and 120 characters.";
     }
 
-    // 2. Medical College
     const collegeCheck = validateMedicalCollege(rawInput.medical_college);
     if (!collegeCheck.valid) {
       errors.medical_college = collegeCheck.message;
     }
 
-    // 3. Admission Year & 4. Professional Year Progression
     const progressionCheck = validateAcademicProgression(
       rawInput.admission_year,
       rawInput.professional_year
@@ -209,7 +232,6 @@
       errors[progressionCheck.field] = progressionCheck.message;
     }
 
-    // 5. Age (Strict integer check)
     const rawAgeStr = String(rawInput.age ?? "").trim();
     const parsedAge = Number(rawAgeStr);
     if (
@@ -222,7 +244,6 @@
       errors.age = `Please enter a valid whole-number age between ${AGE_LIMITS.MIN} and ${AGE_LIMITS.MAX}.`;
     }
 
-    // 6. Gender
     if (!ALLOWED_GENDERS.includes(rawInput.gender)) {
       errors.gender = "Please select a valid gender option.";
     }
@@ -342,24 +363,20 @@
   function populateMedicalColleges() {
     els.medicalCollege.innerHTML = "";
 
+    const placeholderOption = document.createElement("option");
+    placeholderOption.value = "";
+    placeholderOption.textContent = "ABVMU-affiliated colleges have been added yet.";
+    placeholderOption.selected = true;
+    placeholderOption.disabled = true;
+    els.medicalCollege.appendChild(placeholderOption);
+
     if (VERIFIED_MEDICAL_COLLEGES.length === 0) {
-      const placeholderOption = document.createElement("option");
-      placeholderOption.value = "";
-      placeholderOption.textContent = "College list will be available soon";
-      placeholderOption.selected = true;
-      placeholderOption.disabled = true;
-      els.medicalCollege.appendChild(placeholderOption);
       els.medicalCollege.disabled = true;
-      els.collegeHint.classList.remove("hidden");
+      if (els.collegeHint) {
+        els.collegeHint.classList.remove("hidden");
+      }
       return;
     }
-
-    const defaultOption = document.createElement("option");
-    defaultOption.value = "";
-    defaultOption.textContent = "Select your medical college";
-    defaultOption.selected = true;
-    defaultOption.disabled = true;
-    els.medicalCollege.appendChild(defaultOption);
 
     VERIFIED_MEDICAL_COLLEGES.forEach((collegeName) => {
       const opt = document.createElement("option");
@@ -369,7 +386,9 @@
     });
 
     els.medicalCollege.disabled = false;
-    els.collegeHint.classList.add("hidden");
+    if (els.collegeHint) {
+      els.collegeHint.classList.add("hidden");
+    }
   }
 
   function populateAdmissionYears() {
@@ -382,7 +401,6 @@
     els.admissionYear.appendChild(defaultOpt);
 
     const currentYear = new Date().getFullYear();
-    // Dynamically generate admission years from current year down to currentYear - 7
     for (let year = currentYear; year >= currentYear - 7; year--) {
       const opt = document.createElement("option");
       opt.value = String(year);
@@ -428,7 +446,6 @@
 
   async function initializePage() {
     try {
-      // 1. Verify active Supabase session
       const { data: sessionData, error: sessionError } =
         await supabaseClient.auth.getSession();
 
@@ -437,7 +454,6 @@
         return;
       }
 
-      // Re-verify user with Supabase Auth server
       const { data: userData, error: userError } = await supabaseClient.auth.getUser();
       if (userError || !userData || !userData.user) {
         window.location.replace("/auth.html");
@@ -446,7 +462,6 @@
 
       authenticatedUser = userData.user;
 
-      // 2. Check if user already has a completed profile to prevent duplicate creation
       const { data: existingProfile, error: profileError } = await supabaseClient
         .from("profiles")
         .select("id, registration_completed, student_name")
@@ -462,7 +477,6 @@
         return;
       }
 
-      // Pre-fill full name from Google OAuth metadata if available
       const googleFullName =
         authenticatedUser.user_metadata?.full_name ||
         authenticatedUser.user_metadata?.name ||
@@ -471,7 +485,6 @@
         els.studentName.value = googleFullName;
       }
 
-      // 3. Populate dropdowns & reveal form
       populateMedicalColleges();
       populateAdmissionYears();
 
@@ -497,7 +510,6 @@
     clearBanner();
     clearFieldErrors();
 
-    // Collect raw values from DOM
     const rawPayload = {
       student_name: els.studentName.value,
       medical_college: els.medicalCollege.value,
@@ -507,7 +519,6 @@
       gender: els.studentGender.value
     };
 
-    // Run full client-side validation
     const validationResult = validateRegistrationPayload(rawPayload);
 
     if (!validationResult.isValid) {
@@ -519,7 +530,6 @@
     setSubmittingState(true);
 
     try {
-      // Re-verify authenticated session immediately before writing
       const { data: authCheck, error: authCheckError } =
         await supabaseClient.auth.getUser();
 
@@ -530,7 +540,6 @@
 
       const verifiedUserId = authCheck.user.id;
 
-      // Re-check profile completion status
       const { data: currentProfile, error: checkError } = await supabaseClient
         .from("profiles")
         .select("id, registration_completed")
@@ -546,7 +555,6 @@
         return;
       }
 
-      // Prepare exact row matching public.profiles schema
       const profileRecord = {
         id: verifiedUserId,
         student_name: validationResult.sanitizedData.student_name,
@@ -623,13 +631,11 @@
 
   els.form.addEventListener("submit", handleFormSubmit);
 
-  // Listen for sign-out events in other tabs
   supabaseClient.auth.onAuthStateChange((event) => {
     if (event === "SIGNED_OUT") {
       window.location.replace("/auth.html");
     }
   });
 
-  // Boot
   document.addEventListener("DOMContentLoaded", initializePage);
 })();
