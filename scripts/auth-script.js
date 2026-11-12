@@ -41,9 +41,9 @@
         }
     }
 
-// -------------------------------------------------------------------------
-// 3. EXISTING SESSION VERIFICATION
-// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // 3. EXISTING SESSION VERIFICATION & REGISTRATION ROUTING
+    // -------------------------------------------------------------------------
 
     async function checkExistingSession() {
         if (!supabaseClient) return;
@@ -73,7 +73,7 @@
             }
 
             showNotification(
-                "Account verified successfully.",
+                "Account verified successfully. Checking registration status...",
                 "success"
             );
 
@@ -81,6 +81,34 @@
                 "[PROFFGNOSIS Auth] Verified user:",
                 user.email
             );
+
+            // Query public.profiles to check registration status
+            const { data: profile, error: profileError } = await supabaseClient
+                .from('profiles')
+                .select('id, registration_completed')
+                .eq('id', user.id)
+                .maybeSingle();
+
+            if (profileError) {
+                console.error("[PROFFGNOSIS Auth] Profile query error:", profileError.message);
+                showNotification(
+                    "Unable to verify your registration status. Please try again.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!profile || profile.registration_completed !== true) {
+                console.log("[PROFFGNOSIS Auth] Profile missing or registration incomplete. Redirecting to registration.");
+                window.location.href = '/registration.html';
+                return;
+            }
+
+            if (profile.registration_completed === true) {
+                console.log("[PROFFGNOSIS Auth] Registration completed. Redirecting to dashboard.");
+                window.location.href = '/dashboard.html';
+                return;
+            }
 
         } catch (err) {
             console.error(
@@ -116,10 +144,10 @@
                 showNotification(
                     "Authentication service is unavailable. Please try again later.",
                     "error"
-            );
-            setLoadingState(false, btnGoogle, btnText, btnSpinner);
-            return;
-        }
+                );
+                setLoadingState(false, btnGoogle, btnText, btnSpinner);
+                return;
+            }
 
             const redirectUrl = window.location.origin + '/auth.html';
 
@@ -182,7 +210,7 @@
         document.addEventListener('cut', (e) => e.preventDefault());
         document.addEventListener('dragstart', (e) => e.preventDefault());
 
-// Block common copy and save shortcuts
+        // Block common copy and save shortcuts
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) &&
                 ['c', 'x', 'a', 'u', 's', 'p'].includes(e.key.toLowerCase())) {
