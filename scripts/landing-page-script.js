@@ -90,21 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Interactive Proff Curriculum Preview in Hero
+    // 4. Interactive Proff Curriculum Preview in Hero (Updated with precise NMC CBME subjects)
     const proffData = {
         '1': {
-            phase: 'Pre-Clinical Foundation',
-            title: 'Anatomy, Physiology & Biochemistry',
+            phase: '1st Professional Year',
+            title: 'Pre-Clinical Foundation',
             prompt: 'Ready to clarify mechanisms, high-yield topics, and 1st Proff concepts.',
             subjects: [
-                { name: 'Human Anatomy', meta: 'Authentic Source Indexed' },
-                { name: 'Medical Physiology', meta: 'Concept & Proff Ready' },
+                { name: 'Anatomy', meta: 'Authentic Source Indexed' },
+                { name: 'Physiology', meta: 'Concept & Proff Ready' },
                 { name: 'Biochemistry', meta: 'Structured Revision' }
             ]
         },
         '2': {
-            phase: 'Para-Clinical Core',
-            title: 'Pathology, Pharmacology & Microbiology',
+            phase: '2nd Professional Year',
+            title: 'Para-Clinical Core',
             prompt: 'Ask SHIVOID to break down mechanisms of action or systemic pathology.',
             subjects: [
                 { name: 'Pathology', meta: 'Morphology & Mechanisms' },
@@ -113,23 +113,25 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         '3': {
-            phase: 'Clinical Transition',
-            title: 'Community Medicine, Forensic Medicine, ENT & Ophthalmology',
-            prompt: 'Structured revision and performance tracking across 3rd Proff subjects.',
+            phase: '3rd Professional Year (Part-I)',
+            title: 'Clinical Transition & Diagnostics',
+            prompt: 'Forensic Medicine exam is now in 3rd Proff Part-I under NMC CBME guidelines.',
             subjects: [
                 { name: 'Community Medicine', meta: 'Epidemiology & Biostatistics' },
-                { name: 'Forensic Medicine & Toxicology', meta: 'Authentic Source Indexed' },
-                { name: 'Ophthalmology & Otorhinolaryngology', meta: 'Proff Focused' }
+                { name: 'Forensic Medicine & Toxicology', meta: 'NMC CBME Part-I Exam' },
+                { name: 'Ophthalmology', meta: 'Proff Focused' },
+                { name: 'ENT (Otorhinolaryngology)', meta: 'Surgical & Clinical' }
             ]
         },
         '4': {
-            phase: 'Final Clinical Mastery',
-            title: 'Medicine, Surgery, Obstetrics & Gynecology, Pediatrics',
-            prompt: 'Synthesize clinical management and diagnostic reasoning for Final Proff.',
+            phase: '3rd Professional Year (Part-II)',
+            title: 'Final Clinical Disciplines',
+            prompt: 'Synthesize clinical management, allied specialties, and diagnostic reasoning.',
             subjects: [
-                { name: 'General Medicine & Allied', meta: 'Authentic Source Indexed' },
-                { name: 'General Surgery & Orthopedics', meta: 'Structured Clinical Approach' },
-                { name: 'OBGYN & Pediatrics', meta: 'Comprehensive Proff Prep' }
+                { name: 'General Medicine', meta: 'Inc. Derm, Psych, Resp' },
+                { name: 'General Surgery', meta: 'Inc. Ortho, Anesth, Radio' },
+                { name: 'Obstetrics & Gynaecology (OBG)', meta: 'Comprehensive Proff Prep' },
+                { name: 'Pediatrics', meta: 'Neonatology & Growth' }
             ]
         }
     };
