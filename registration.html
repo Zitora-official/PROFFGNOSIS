@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration — PROFFGNOSIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/registration-style.css" />
+</head>
+
+<body>
+    <main class="page-wrapper">
+        <div class="container">
+            <!-- Brand Header -->
+            <header class="brand-header">
+                <span class="brand-title">PROFFGNOSIS</span>
+                <span class="brand-subtitle">One-Time Student Registration</span>
+            </header>
+
+            <!-- Session Verification State -->
+            <section id="auth-loading-card" class="clay-card status-card" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <p class="status-text">Verifying your authenticated session...</p>
+            </section>
+
+            <!-- Main Registration Flow (Hidden until session & profile status verified) -->
+            <div id="registration-content" class="hidden">
+                <!-- SHIVOID Assistant Single Message -->
+                <section class="clay-card shivoid-card" aria-label="SHIVOID Assistant Message">
+                    <img src="assets/shivoid/shivoid-avatar.png" alt="SHIVOID AI Assistant" class="shivoid-avatar"
+                        width="48" height="48" />
+                    <div class="shivoid-bubble">
+                        <span class="shivoid-label">SHIVOID</span>
+                        <p class="shivoid-message">
+                            You're at the final step, Doctor! Please complete your student registration to unlock your
+                            personalised PROFFGNOSIS learning space.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Registration Form Card -->
+                <section class="clay-card form-card">
+                    <div id="form-banner" class="banner hidden" role="alert" aria-live="assertive"></div>
+
+                    <form id="registration-form" novalidate>
+                        <!-- Student Full Name -->
+                        <div class="form-group">
+                            <label for="student-name" class="form-label">
+                                Student Full Name <span class="required-mark" aria-hidden="true">*</span>
+                            </label>
+                            <input type="text" id="student-name" name="student_name" class="form-control"
+                                placeholder="e.g., Dr. Aarav Sharma" autocomplete="name" maxlength="120" required />
+                            <p id="error-student-name" class="field-error hidden"></p>
+                        </div>
+
+                        <!-- Medical College (Dropdown ONLY; options populated manually later) -->
+                        <div class="form-group">
+                            <label for="medical-college" class="form-label">
+                                Medical College <span class="required-mark" aria-hidden="true">*</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="medical-college" name="medical_college" class="form-control" required>
+                                    <option value="" selected disabled>College list will be available soon</option>
+                                </select>
+                            </div>
+                            <p id="college-status-hint" class="field-hint">
+                                Verified medical college list is pending administrator configuration.
+                            </p>
+                            <p id="error-medical-college" class="field-error hidden"></p>
+                        </div>
+
+                        <!-- Admission Year -->
+                        <div class="form-group">
+                            <label for="admission-year" class="form-label">
+                                Admission Year <span class="required-mark" aria-hidden="true">*</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="admission-year" name="admission_year" class="form-control" required>
+                                    <option value="" selected disabled>Select your MBBS admission year</option>
+                                </select>
+                            </div>
+                            <p id="error-admission-year" class="field-error hidden"></p>
+                        </div>
+
+                        <!-- Current MBBS Professional Year -->
+                        <div class="form-group">
+                            <label for="professional-year" class="form-label">
+                                Current MBBS Professional Year <span class="required-mark" aria-hidden="true">*</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="professional-year" name="professional_year" class="form-control" required
+                                    disabled>
+                                    <option value="" selected disabled>Select admission year first</option>
+                                </select>
+                            </div>
+                            <p id="error-professional-year" class="field-error hidden"></p>
+                        </div>
+
+                        <!-- Age & Gender Row -->
+                        <div class="form-row">
+                            <!-- Age -->
+                            <div class="form-group">
+                                <label for="student-age" class="form-label">
+                                    Age <span class="required-mark" aria-hidden="true">*</span>
+                                </label>
+                                <input type="number" id="student-age" name="age" class="form-control"
+                                    placeholder="e.g., 20" min="16" max="65" step="1" inputmode="numeric" required />
+                                <p id="error-student-age" class="field-error hidden"></p>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="form-group">
+                                <label for="student-gender" class="form-label">
+                                    Gender <span class="required-mark" aria-hidden="true">*</span>
+                                </label>
+                                <div class="select-wrapper">
+                                    <select id="student-gender" name="gender" class="form-control" required>
+                                        <option value="" selected disabled>Select gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <p id="error-student-gender" class="field-error hidden"></p>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submit-btn" class="btn-primary">
+                            <span id="submit-btn-text">Complete Registration</span>
+                            <span id="submit-btn-spinner" class="btn-spinner hidden" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Supabase JS v2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="scripts/registration-script.js"></script>
+</body>
+
+</html>
