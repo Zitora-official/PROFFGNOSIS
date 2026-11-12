@@ -161,15 +161,12 @@ body {
 
 
 .shivoid-avatar {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     flex-shrink: 0;
+    object-fit: contain;
     display: block;
-    fill: #041635;
-    stroke: #041635;
-    stroke-width: 1.1;
-    opacity: 0.95;
-    background: none;
+    background: transparent;
     border: none;
     border-radius: 0;
 }
