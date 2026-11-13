@@ -27,7 +27,7 @@
     --border-subtle: rgba(15, 23, 42, 0.08);
     --border-medium: rgba(15, 23, 42, 0.14);
 
-    /* Shadows — Apple-inspired subtle elevation */
+    /* Shadows */
     --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.03);
     --shadow-md: 0 12px 32px -4px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
@@ -37,7 +37,6 @@
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-serif: 'Newsreader', Georgia, serif;
 
-    /* Layout & Radii */
     --container-max: 1120px;
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -45,15 +44,10 @@
     --radius-xl: 20px;
     --radius-pill: 9999px;
 
-    /* Motion */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
     --transition-smooth: 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* ==========================================================================
-   Reset & Base — Strict Mobile Width Containment
-   ========================================================================== */
 
 *,
 *::before,
@@ -70,6 +64,7 @@ body {
     overflow-x: hidden;
     position: relative;
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -79,10 +74,7 @@ body {
     line-height: 1.6;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     min-height: var(--tg-viewport-stable-height, 100dvh);
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 img,
@@ -90,7 +82,6 @@ svg {
     display: block;
     max-width: 100%;
     height: auto;
-    -webkit-user-drag: none;
 }
 
 a {
@@ -168,18 +159,6 @@ button {
     transform: translateY(-1px);
 }
 
-.btn-primary:active {
-    transform: translateY(0) scale(0.985);
-}
-
-.btn-primary .icon-arrow {
-    transition: transform var(--transition-fast);
-}
-
-.btn-primary:hover .icon-arrow {
-    transform: translateX(3px);
-}
-
 .btn-secondary {
     background-color: var(--bg-surface);
     color: var(--ink-primary);
@@ -192,8 +171,16 @@ button {
     border-color: rgba(15, 23, 42, 0.24);
 }
 
+.icon-arrow {
+    transition: transform var(--transition-fast);
+}
+
+.btn-primary:hover .icon-arrow {
+    transform: translateX(3px);
+}
+
 /* ==========================================================================
-   Navigation Header
+   Navigation Header (Sticky)
    ========================================================================== */
 
 .site-header {
@@ -202,7 +189,7 @@ button {
     z-index: 100;
     width: 100%;
     max-width: 100vw;
-    background-color: rgba(250, 250, 250, 0.85);
+    background-color: rgba(250, 250, 250, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid transparent;
@@ -210,7 +197,7 @@ button {
 }
 
 .site-header.is-scrolled {
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.94);
     border-bottom-color: var(--border-subtle);
 }
 
@@ -237,11 +224,11 @@ button {
 .desktop-nav {
     display: none;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--ink-secondary);
     transition: color var(--transition-fast);
@@ -258,7 +245,7 @@ button {
     gap: 12px;
 }
 
-/* Mobile Hamburger */
+/* Mobile Hamburger & Drawer */
 .mobile-menu-toggle {
     display: flex;
     flex-direction: column;
@@ -291,7 +278,6 @@ button {
     transform: translateY(-3.25px) rotate(-45deg);
 }
 
-/* Mobile Drawer */
 .mobile-drawer {
     position: fixed;
     top: 68px;
@@ -328,9 +314,8 @@ button {
 }
 
 .mobile-nav-link {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 500;
-    letter-spacing: -0.02em;
     color: var(--ink-primary);
     padding: 14px 4px;
     border-bottom: 1px solid var(--border-subtle);
@@ -341,17 +326,15 @@ button {
    ========================================================================== */
 
 .hero-section {
-    padding-top: clamp(36px, 6vw, 84px);
-    padding-bottom: clamp(56px, 8vw, 108px);
-    overflow: hidden;
+    padding-top: clamp(40px, 7vw, 96px);
+    padding-bottom: clamp(60px, 9vw, 120px);
 }
 
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(32px, 6vw, 64px);
+    gap: clamp(36px, 6vw, 64px);
     align-items: center;
-    width: 100%;
 }
 
 .eyebrow {
@@ -377,244 +360,101 @@ button {
 }
 
 .hero-title {
-    font-size: clamp(2.15rem, 5vw, 3.85rem);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: var(--ink-primary);
     margin-bottom: 22px;
-    max-width: 100%;
-    word-break: break-word;
 }
 
 .serif-accent {
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
-    letter-spacing: -0.01em;
 }
 
 .hero-subtitle {
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
     line-height: 1.65;
     color: var(--ink-secondary);
-    max-width: 100%;
     margin-bottom: 34px;
-    font-weight: 400;
+    max-width: 54ch;
 }
 
 .hero-cta-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 100%;
 }
 
-/* Product Architecture Frame (Hero Visual) */
-.hero-visual {
-    width: 100%;
-    min-width: 0;
-}
-
-.product-frame {
+.hero-card-clean {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-xl);
+    padding: clamp(28px, 4vw, 40px);
     box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    width: 100%;
-    min-width: 0;
-    transition: box-shadow var(--transition-smooth);
 }
 
-.frame-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border-subtle);
-    background-color: #FCFCFD;
-    gap: 8px;
-}
-
-.frame-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 0;
-}
-
-.status-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--accent-emerald);
-    flex-shrink: 0;
-}
-
-.frame-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--ink-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.frame-tag {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--ink-tertiary);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.proff-tabs {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    padding: 6px;
-    gap: 3px;
-    background-color: var(--bg-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.proff-tab {
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--ink-secondary);
-    padding: 8px 2px;
-    border-radius: var(--radius-sm);
-    transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.proff-tab:hover {
-    color: var(--ink-primary);
-}
-
-.proff-tab.active {
-    background-color: var(--bg-surface);
-    color: var(--ink-primary);
-    font-weight: 600;
-    box-shadow: var(--shadow-xs);
-}
-
-.frame-body {
-    padding: 20px 18px;
-    transition: opacity 180mm ease;
-}
-
-.frame-body.is-updating {
-    opacity: 0.35;
-}
-
-.subject-header {
-    margin-bottom: 16px;
-}
-
-.subject-phase {
-    display: block;
+.hero-card-tag {
     font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: var(--accent-clinical);
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+    display: block;
 }
 
-.subject-title {
-    font-size: 1.05rem;
+.hero-card-clean h3 {
+    font-size: 1.35rem;
     font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--ink-primary);
+    margin-bottom: 10px;
 }
 
-.subject-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.hero-card-clean p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+    margin-bottom: 24px;
 }
 
-.subject-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.hero-card-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding: 10px 12px;
+}
+
+.stat-pill {
     background-color: var(--bg-primary);
     border: 1px solid var(--border-subtle);
+    padding: 12px 16px;
     border-radius: var(--radius-md);
-}
-
-.subject-name {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--ink-primary);
-}
-
-.subject-meta {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--ink-tertiary);
-    white-space: nowrap;
-}
-
-.frame-assistant-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 18px;
-    background-color: #F8FAFC;
-    border-top: 1px solid var(--border-subtle);
-}
-
-/* Pure SHIVOID Avatar in frame: zero border, zero background, clean integration */
-.mini-avatar-pure {
-    width: 32px;
-    height: 32px;
-    border-radius: 0;
-    object-fit: contain;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    flex-shrink: 0;
-}
-
-.assistant-bar-text {
     display: flex;
     flex-direction: column;
-    min-width: 0;
 }
 
-.assistant-bar-name {
-    font-size: 0.72rem;
-    font-weight: 600;
+.stat-val {
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--ink-primary);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
 }
 
-.assistant-bar-prompt {
-    font-size: 0.78rem;
-    color: var(--ink-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.stat-lbl {
+    font-size: 0.72rem;
+    color: var(--ink-tertiary);
+    font-weight: 500;
 }
 
 /* ==========================================================================
-   General Sections & Typography
+   Sections & Typography
    ========================================================================== */
 
 .section {
-    padding-top: clamp(56px, 9vw, 116px);
-    padding-bottom: clamp(56px, 9vw, 116px);
-    overflow: hidden;
+    padding-top: clamp(60px, 9vw, 120px);
+    padding-bottom: clamp(60px, 9vw, 120px);
 }
 
 .section-bordered {
@@ -622,7 +462,7 @@ button {
 }
 
 .section-header {
-    max-width: 680px;
+    max-width: 700px;
     margin-bottom: clamp(36px, 6vw, 64px);
 }
 
@@ -637,9 +477,9 @@ button {
 }
 
 .section-title {
-    font-size: clamp(1.65rem, 3.4vw, 2.5rem);
+    font-size: clamp(1.7rem, 3.4vw, 2.6rem);
     font-weight: 600;
-    line-height: 1.16;
+    line-height: 1.15;
     letter-spacing: -0.03em;
     color: var(--ink-primary);
     margin-bottom: 16px;
@@ -652,261 +492,419 @@ button {
 }
 
 /* ==========================================================================
-   Core Pillars Grid (All 4 Proffs, 100% Reliable, Analytics)
+   Section 2: SHIVOID AI
    ========================================================================== */
 
-.pillars-grid {
+.shivoid-showcase-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: clamp(32px, 6vw, 64px);
+    align-items: center;
 }
 
-.pillar-card {
+.shivoid-avatar-box {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: clamp(22px, 3vw, 34px);
-    box-shadow: var(--shadow-xs);
-    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
-}
-
-.pillar-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-medium);
-}
-
-.pillar-header {
+    border-radius: var(--radius-xl);
+    padding: clamp(36px, 6vw, 64px) 32px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.shivoid-main-avatar {
+    width: clamp(120px, 18vw, 160px);
+    height: clamp(120px, 18vw, 160px);
+    object-fit: contain;
     margin-bottom: 24px;
 }
 
-.pillar-index {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--ink-tertiary);
-    font-variant-numeric: tabular-nums;
-}
-
-.pillar-category {
-    font-size: 0.72rem;
+.shivoid-status-badge {
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-secondary);
-    background-color: var(--bg-subtle);
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-}
-
-.pillar-icon-wrap {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-md);
-    background-color: var(--accent-clinical-soft);
-    color: var(--accent-clinical);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-}
-
-.pillar-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--ink-primary);
-    margin-bottom: 8px;
-}
-
-.pillar-desc {
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--ink-secondary);
-}
-
-/* ==========================================================================
-   SHIVOID AI Section
-   ========================================================================== */
-
-.shivoid-section {
-    background-color: var(--bg-surface);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.shivoid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: center;
-}
-
-.shivoid-identity {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    padding: clamp(32px, 5vw, 56px) 24px;
-}
-
-/* Pure SHIVOID Avatar presentation: absolutely no border, no background, no circular framing */
-.shivoid-avatar-wrapper-pure {
-    width: clamp(110px, 16vw, 150px);
-    height: clamp(110px, 16vw, 150px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    margin-bottom: 20px;
-}
-
-.shivoid-avatar-pure {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-}
-
-.shivoid-badge {
-    font-size: 0.72rem;
-    font-weight: 600;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--ink-primary);
-    background-color: var(--bg-surface);
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-medium);
-    padding: 5px 14px;
+    padding: 6px 16px;
     border-radius: var(--radius-pill);
 }
 
-.shivoid-title {
-    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin-bottom: 14px;
-}
-
-.shivoid-lead {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--ink-secondary);
-    margin-bottom: 28px;
-    max-width: 56ch;
-}
-
-.shivoid-capabilities {
+.shivoid-caps-col {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
 }
 
-.capability-item {
+.cap-item {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 16px;
+    padding: 18px 22px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
 }
 
-.capability-marker {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--accent-clinical);
-    margin-top: 8px;
-    flex-shrink: 0;
+.cap-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--accent-clinical);
+    min-width: 24px;
+    padding-top: 1px;
 }
 
-.capability-item h4 {
-    font-size: 0.95rem;
+.cap-item h3 {
+    font-size: 1rem;
     font-weight: 600;
     color: var(--ink-primary);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.capability-item p {
+.cap-item p {
     font-size: 0.88rem;
     line-height: 1.55;
     color: var(--ink-secondary);
 }
 
-/* ==========================================================================
-   Principles Layout
-   ========================================================================== */
-
-.principles-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(36px, 5vw, 64px);
-    align-items: start;
+.badge-coming {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: var(--bg-subtle);
+    color: var(--ink-tertiary);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
 }
 
-.principles-list {
+.badge-coming-inline {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: var(--bg-subtle);
+    color: var(--ink-tertiary);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   Section 3: ABVMU Question Bank
+   ========================================================================== */
+
+.qbank-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.qbank-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: clamp(28px, 4vw, 40px);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
 }
 
-.principle-row {
+.qbank-badge-primary {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-clinical);
+    background-color: var(--accent-clinical-soft);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+}
+
+.qbank-badge-secondary {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-emerald);
+    background-color: rgba(5, 150, 105, 0.08);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+}
+
+.qbank-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.qbank-desc {
+    font-size: 0.92rem;
+    color: var(--ink-secondary);
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+.qbank-features {
+    list-style: none;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 20px;
+    margin-top: auto;
+}
+
+.qbank-features li {
+    font-size: 0.88rem;
+    color: var(--ink-secondary);
+    position: relative;
+    padding-left: 18px;
+}
+
+.qbank-features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--ink-tertiary);
+}
+
+/* ==========================================================================
+   Section 4: Complete MBBS Curriculum Timeline
+   ========================================================================== */
+
+.curriculum-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 20px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-xs);
     align-items: flex-start;
-    gap: 18px;
-    padding: 22px 0;
-    border-bottom: 1px solid var(--border-subtle);
 }
 
-.principle-row:first-child {
-    padding-top: 0;
+.timeline-marker {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.principle-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.principle-num {
+.timeline-num {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 1.2rem;
-    color: var(--accent-clinical);
-    min-width: 24px;
-    padding-top: 2px;
-}
-
-.principle-text h3 {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: -0.015em;
-    margin-bottom: 4px;
+    color: var(--accent-clinical);
 }
 
-.principle-text p {
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-content h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+}
+
+.timeline-duration {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-clinical);
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
     font-size: 0.92rem;
     line-height: 1.6;
     color: var(--ink-secondary);
 }
 
 /* ==========================================================================
-   Final CTA Section
+   Section 5: Academic Intelligence
    ========================================================================== */
 
-.cta-section {
-    padding-top: 16px;
+.intelligence-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
-.cta-card {
+.intel-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-xs);
+}
+
+.intel-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 10px;
+}
+
+.intel-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   Section 6: Subjects & Specialised Tools
+   ========================================================================== */
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.tool-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-clinical);
+    margin-bottom: 12px;
+}
+
+.tool-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.tool-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   Section 7: Textbooks & References
+   ========================================================================== */
+
+.textbooks-box {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-xl);
-    padding: clamp(36px, 7vw, 80px) clamp(20px, 5vw, 48px);
+    padding: clamp(28px, 5vw, 48px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.textbook-col h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+}
+
+.textbook-col p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   Section 8: Why PROFFGNOSIS
+   ========================================================================== */
+
+.pillars-grid-final {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.pillar-box {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-xs);
+}
+
+.pillar-box h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 10px;
+}
+
+.pillar-box p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+}
+
+/* ==========================================================================
+   Section 9 & 10: About & Final Invitation
+   ========================================================================== */
+
+.about-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: clamp(36px, 6vw, 64px);
+    box-shadow: var(--shadow-sm);
+}
+
+.final-shivoid-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: clamp(40px, 7vw, 80px) clamp(20px, 5vw, 48px);
     text-align: center;
     box-shadow: var(--shadow-md);
     display: flex;
@@ -914,42 +912,36 @@ button {
     align-items: center;
 }
 
-.cta-logo {
-    height: 32px;
-    width: auto;
-    margin-bottom: 22px;
+.final-shivoid-avatar {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin-bottom: 20px;
 }
 
-.cta-title {
-    font-size: clamp(1.65rem, 3.5vw, 2.5rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
+.final-shivoid-card .section-title {
     max-width: 22ch;
     margin-bottom: 12px;
 }
 
-.cta-subtitle {
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: var(--ink-secondary);
+.final-shivoid-card .section-lead {
     max-width: 48ch;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 
-.cta-actions {
+.final-shivoid-card .cta-actions {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 240px;
+    max-width: 220px;
 }
 
-.cta-actions .btn {
+.final-shivoid-card .cta-actions .btn {
     width: 100%;
 }
 
 /* ==========================================================================
-   Footer & Beautiful Founders Showcase
+   Section 11: Footer & Founders Showcase
    ========================================================================== */
 
 .site-footer {
@@ -971,7 +963,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
 }
 
 .footer-logo {
@@ -980,12 +972,28 @@ button {
     opacity: 0.9;
 }
 
-.footer-tagline {
-    font-size: 0.78rem;
-    color: var(--ink-tertiary);
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    color: var(--ink-secondary);
 }
 
-/* Beautiful Founder Showcase Styling */
+.footer-link {
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+    color: var(--ink-primary);
+}
+
+.footer-divider {
+    color: var(--border-medium);
+}
+
+/* Founders Showcase Styling */
 .footer-founders {
     display: flex;
     align-items: center;
@@ -1036,15 +1044,6 @@ button {
     color: var(--ink-secondary);
 }
 
-.footer-link {
-    font-weight: 500;
-    transition: color var(--transition-fast);
-}
-
-.footer-link:hover {
-    color: var(--ink-primary);
-}
-
 .footer-brand {
     font-weight: 500;
     color: var(--ink-tertiary);
@@ -1075,7 +1074,7 @@ button {
 }
 
 /* ==========================================================================
-   Tablet Breakpoint (min-width: 640px)
+   Tablet & Desktop Breakpoints
    ========================================================================== */
 
 @media (min-width: 640px) {
@@ -1084,12 +1083,15 @@ button {
         width: auto;
     }
 
-    .pillars-grid {
+    .qbank-split-grid,
+    .intelligence-grid,
+    .tools-grid,
+    .pillars-grid-final {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .pillars-grid .pillar-card:last-child {
-        grid-column: span 2;
+    .textbooks-box {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .footer-inner {
@@ -1098,14 +1100,9 @@ button {
     }
 
     .footer-left {
-        flex-direction: row;
-        gap: 16px;
+        align-items: flex-start;
     }
 }
-
-/* ==========================================================================
-   Desktop Breakpoint (min-width: 960px)
-   ========================================================================== */
 
 @media (min-width: 960px) {
     .desktop-nav {
@@ -1121,20 +1118,15 @@ button {
         grid-template-columns: 1.05fr 0.95fr;
     }
 
-    .pillars-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .pillars-grid .pillar-card:last-child {
-        grid-column: auto;
-    }
-
-    .shivoid-container {
-        grid-template-columns: 0.72fr 1.28fr;
-    }
-
-    .principles-layout {
+    .shivoid-showcase-grid {
         grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .qbank-split-grid,
+    .intelligence-grid,
+    .tools-grid,
+    .pillars-grid-final {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -1150,14 +1142,6 @@ button {
     .reveal {
         opacity: 1;
         transform: none;
-        transition: none;
-    }
-
-    .btn,
-    .pillar-card,
-    .frame-body,
-    .mobile-drawer,
-    .hamburger-line {
         transition: none;
     }
 }
